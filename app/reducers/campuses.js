@@ -1,4 +1,5 @@
 import { thunkMiddleware } from 'redux-thunk';
+import { deleteFromCampus } from '../reducers'
 import axios from 'axios'
 
 
@@ -49,6 +50,8 @@ export function deleteCampus(campus, history) {
     dispatch(action)
     axios.delete(`/api/campuses/${campus.id}`)
       .then(() => {
+        const studentAction = deleteFromCampus(campus.id)
+        dispatch(studentAction)
         history.push('/')
       })
   }
@@ -71,13 +74,13 @@ export function editCampus(campus) {
 export default function campusReducer(state = [], action) {
   switch (action.type) {
     case GET_CAMPUSES:
-      return Object.assign({}, state, { campuses: action.campuses })
+      return action.campuses
     case GET_CAMPUS:
-      return Object.assign({}, state, { campuses: [...state.campuses, action.campus] })
+      return [...state, action.campus]
     case REMOVE_CAMPUS:
-      return Object.assign({}, state, { campuses: state.campuses.filter(campus => campus.id !== action.campus.id)})
+      return state.filter(campus => campus.id !== action.campus.id)
     case UPDATE_CAMPUS:
-      return Object.assign({}, state, { campuses: [...state.campuses.filter(campus => campus.id !== action.campus.id), action.campus]})
+      return [...state.filter(campus => campus.id !== action.campus.id), action.campus]
     default: return state;
   }
 }

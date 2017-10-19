@@ -29,7 +29,7 @@ export function Students(props) {
 
 const mapStateToProps = (state) => {
   return {
-    students: state.studentReducer.students
+    students: state.studentReducer
   }
 }
 

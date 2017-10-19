@@ -11,6 +11,7 @@ export const getCurrentCampus = (campus) => { return { type: GET_CURRENT_CAMPUS,
 
 
 export function fetchStudent(studentId) {
+  console.log('INSIDE STUDENT FETCH')
   return function thunk(dispatch) {
     axios.get(`/api/students/${studentId}`)
       .then(res => res.data)

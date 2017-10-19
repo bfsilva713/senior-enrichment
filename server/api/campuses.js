@@ -1,5 +1,5 @@
 const campusRouter = require('express').Router();
-const { Campus } = require('../../db/models')
+const { Campus, Student } = require('../../db/models')
 
 
 
@@ -30,6 +30,9 @@ campusRouter.put('/:campusId', (req, res, next) => {
 
 campusRouter.delete('/:campusId', (req, res, next) => {
   Campus.destroy({ where: {id: req.params.campusId}})
+    .then(() => Student.destroy({where: {
+      campusId: req.params.campusId
+    }}))
     .then(() => res.status(204).end())
     .catch(next);
 });

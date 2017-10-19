@@ -11,9 +11,12 @@ const Campus = require('./campus');
 
 // This is also probably a good place for you to set up your associations
 
-
-Student.belongsTo(Campus, {onDelete: 'cascade'});
-Campus.hasMany(Student, {onDelete: 'cascade'});
+// Channel.hasMany(Message, {
+//   onDelete: 'cascade',
+//   hooks: true
+// });
+Student.belongsTo(Campus);
+Campus.hasMany(Student, {onDelete: 'cascade', hooks: true});
 
 
 module.exports = {

@@ -6,29 +6,38 @@ import EditCampus from './EditCampus'
 
 
 export function SingleCampus(props) {
+  const campusId = Number(props.match.params.campusId)
+  const campus = props.campus.find(campusItem => campusItem.id === campusId);
+  const students = props.students.filter(student => student.campusId ===  campusId);
 
-  const campus = props.campus;
-  const students = props.students.filter(student => student.campusId === campus.id);
+  console.log('CAMPUS', campus)
 
-
-  return(
+  return (
     <div>
       <div id='campus-info'>
-        <h2>{campus.name}</h2>
+        {
+          campus && (
+            <div>
+              <h2>{campus.name}</h2>
+              <img src={`/images/${campus.image}`} />
+            </div>
+          )
+        }
 
-        <img src={`../images/${campus.image}`} />
       </div>
 
       <div id='campus-student-info'>
         <h3>Students</h3>
         <ul>
-          {students.map(student => {
-            return (
-              <li key={student.id}>
-              <Link to={`/students/${student.id}`}>{student.name}</Link>
-            </li>
-            )
-          })}
+          {
+            students.map(student => {
+              return (
+                <li key={student.id}>
+                  <Link to={`/students/${student.id}`}>{student.name}</Link>
+                </li>
+              )
+            })
+          }
         </ul>
       </div>
       <DeleteCampus campus={campus} />
@@ -41,10 +50,11 @@ const mapStateToProps = (state, ownProps) => {
   const campusId = Number(ownProps.match.params.campusId)
   console.log('CAMPUS ID IS', campusId)
   console.log('STATE LOOKS LIKE', state)
+  console.log('STATE-CAMPUS-REDUCER', state.campusReducer)
 
   return {
-    campus: state.campusReducer.campuses.find(campus => campus.id === campusId),
-    students: state.studentReducer.students
+    campus: state.campusReducer,
+    students: state.studentReducer
   }
 }
 
