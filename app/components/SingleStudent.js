@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import DeleteStudent from './DeleteStudent'
+import fetchStudent from '../reducers'
 
 
 export function SingleStudent(props) {
@@ -38,8 +39,16 @@ const mapStateToProps = (state, ownProps) => {
   console.log('STATE LOOKS LIKE', state)
 
   return {
-    student: state.students.find(student => student.id === studentId),
-    campus: state.students.find(student => student.id === studentId).campus
+    student: state.studentReducer.students.find(student => student.id === studentId),
+    campus: state.studentReducer.students.find(student => student.id === studentId).campus
+  }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    fetchStudent() {
+      dispatch(fetchStudent(ownProps.match.params.studentId))
+    }
   }
 }
 

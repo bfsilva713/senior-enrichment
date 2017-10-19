@@ -14,10 +14,6 @@ export function AddCampus(props) {
   )
 }
 
-// const mapStateToProps = state => {
-//   return {}
-// }
-
 const mapDispatchToProps = dispatch => {
   return {
     submitCampus(event){

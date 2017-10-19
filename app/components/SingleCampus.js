@@ -43,8 +43,8 @@ const mapStateToProps = (state, ownProps) => {
   console.log('STATE LOOKS LIKE', state)
 
   return {
-    campus: state.campuses.find(campus => campus.id === campusId),
-    students: state.students
+    campus: state.campusReducer.campuses.find(campus => campus.id === campusId),
+    students: state.studentReducer.students
   }
 }
 

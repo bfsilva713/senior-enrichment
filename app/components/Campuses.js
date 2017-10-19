@@ -27,7 +27,7 @@ export function Campuses(props) {
 
 const mapStateToProps = (state) => {
   return {
-    campuses: state.campuses
+    campuses: state.campusReducer.campuses
   }
 }
 
