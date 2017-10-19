@@ -28,6 +28,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     submitEdit(event){
       event.preventDefault()
+      console.log('EMAIL IS', event.target.email.value)
+      console.log('NAME IS', event.target.name.value)
+      console.log('IMAGE IS', event.target.image.value)
+
       if(event.target.name.value) {
         edit.name = event.target.name.value
       }
@@ -36,6 +40,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       }
       if(event.target.image.value) edit.image = event.target.image.value
       dispatch(editStudent(studentId, edit))
+      console.log('EDIT LOOKS LIKE', edit)
+
     }
   }
 }

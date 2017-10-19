@@ -16,8 +16,7 @@ let Student = db.define('student', {
     }
   },
   image: {
-    type: Sequelize.STRING,
-    defaultValue: '/images/profile/profile2.png'
+    type: Sequelize.STRING
   }
 }, {
   scopes: {

@@ -17,7 +17,7 @@ export function SingleCampus(props) {
           campus && (
             <div>
               <h2>{campus.name}</h2>
-              <img src={`/images/${campus.image}`} />
+              <img src={campus.image} />
             </div>
           )
         }

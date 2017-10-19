@@ -39,7 +39,6 @@ export function postCampus(campus) {
       .then(newCampus => {
         const action = getCampus(newCampus)
         dispatch(action)
-        // dispatch(fetchCampuses())
       })
   }
 }

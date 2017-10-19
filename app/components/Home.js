@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import { BrowerRouter as Router, Switch } from 'react-router';
 import { NavLink, Route, Switch } from 'react-router-dom';
 
 import Students from './Students'
@@ -7,7 +6,6 @@ import Campuses from './Campuses'
 import SingleCampus from './SingleCampus'
 import SingleStudent from './SingleStudent'
 import { fetchCampuses, fetchStudents } from '../reducers'
-import thunkMiddleware from 'redux-thunk'
 import store from '../store'
 
 

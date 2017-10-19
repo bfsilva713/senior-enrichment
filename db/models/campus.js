@@ -8,7 +8,8 @@ let Campus = db.define('campus', {
     allowNull: false
   },
   image: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    defaultValue: 'default-uni.png'
   }
 });
 

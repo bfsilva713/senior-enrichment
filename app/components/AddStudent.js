@@ -24,6 +24,13 @@ export function AddStudent(props) {
           />
         </label>
         <label>
+          Image:
+          <input
+            name='image'
+            placeholder='Image URL'
+          />
+        </label>
+        <label>
           Campus:
           <select name='campus'>
             {props.campuses.map(campus =>
@@ -51,8 +58,11 @@ const mapDispatchToProps = dispatch => {
       const name = event.target.name.value;
       const email = event.target.email.value;
       const campusName = event.target.campus.value;
-      console.log('CAMPUS IS', campusName)
-      dispatch(postStudent({ name, email, campusName }))
+      let image = event.target.image.value;
+
+      if(image === '') image = `/images/profile/profile${Math.ceil(Math.random()*26)}.png`;
+      if(!name || !email) alert('Name and email cannot be empty');
+      else dispatch(postStudent({ name, email, image, campusName }))
     }
   }
 }

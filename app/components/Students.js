@@ -5,7 +5,6 @@ import AddStudent from './AddStudent'
 
 
 export function Students(props) {
-  console.log('PROPS IN STUDENTS IS', props)
   return (
     <div id='student-listing'>
     <div>

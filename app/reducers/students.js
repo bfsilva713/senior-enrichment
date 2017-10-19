@@ -34,18 +34,12 @@ export function fetchStudents() {
 }
 
 export function postStudent(student) {
-  console.log('STUDENT IS', student)
   return function thunk(dispatch) {
     axios.post('/api/students', student)
-      .then(res => {
-        console.log('RES.DATA IS', res.data)
-        return res.data
-      })
+      .then(res => res.data)
       .then(newStudent => {
-        console.log('NEW STUDENT IS', newStudent)
         const action = getStudent(newStudent);
         dispatch(action)
-        // dispatch(fetchStudents())
       })
   }
 }
@@ -63,11 +57,12 @@ export function deleteStudent(student, history) {
 
 export function editStudent(studentId, edit) {
   return function thunk(dispatch) {
-    axios.put(`/api/campuses/${studentId}`, edit)
-      .then(res => res.data)
-      .then(updatedStudent => {
-        const action = updateStudent(updatedStudent)
-        dispatch(action)
+    axios.put(`/api/students/${studentId}`, edit)
+    .then(res => res.data)
+    .then(updatedStudent => {
+      const action = updateStudent(updatedStudent)
+      dispatch(action)
+      fetchStudents()
       })
   }
 }
@@ -83,6 +78,8 @@ export default function studentReducer(state = [], action) {
       return [...state, action.student]
     case REMOVE_STUDENT:
       return state.filter(student => student.id !== action.student.id)
+    case UPDATE_STUDENT:
+      return [...state.filter(student => student.id !== action.student.id), action.student]
     case DELETE_FROM_CAMPUS:
       return state.filter(student => student.campusId !== action.campusId)
     default: return state;

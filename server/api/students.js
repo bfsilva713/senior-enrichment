@@ -29,7 +29,7 @@ studentRouter.post('/', (req, res, next) => {
 });
 
 studentRouter.put('/:studentId', (req, res, next) => {
-  Student.findById(req.params.studentId)
+  Student.findById(req.params.studentId, { include: [{ all: true }]})
     .then(student => student.update(req.body))
     .then(student => res.json(student))
     .catch(next);
