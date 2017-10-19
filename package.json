@@ -1,10 +1,10 @@
 {
-  "name": "senior_enrichment",
+  "name": "campus-portal",
   "version": "0.0.1",
   "description": "A review time project",
   "main": "index.js",
   "scripts": {
-    "test": "mocha **/*.test.js *.test.js",
+    "test": "mocha --watch",
     "build": "webpack",
     "build-watch": "webpack -w",
     "start": "nodemon server/start.js"
@@ -15,6 +15,7 @@
     "skeleton"
   ],
   "dependencies": {
+    "axios": "^0.16.2",
     "body-parser": "^1.15.2",
     "chalk": "^1.1.3",
     "express": "^4.14.0",
@@ -35,6 +36,8 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
+    "chai": "^4.1.2",
+    "mocha": "^4.0.1",
     "volleyball": "^1.4.1",
     "webpack": "^3.5.5"
   }
