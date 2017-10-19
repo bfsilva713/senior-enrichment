@@ -1,56 +1,71 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import DeleteStudent from './DeleteStudent'
 import fetchStudent from '../reducers'
+import store from '../store'
 
 
-export function SingleStudent(props) {
+export class SingleStudent extends Component {
+  constructor(props) {
+    super(props)
+    this.state = store.getState()
+  }
+
+  componentDidMount() {
+    const thunk = fetchStudent(this.props.match.params.studentId)
+    store.dispatch(thunk)
+    this.unsubscribe = store.subscribe(() => this.setState(store.getState()));
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
 
 
 
-  console.log('PROPS IN SINGLE STUDENT ARE', props)
+  render () {
+    console.log('PROPS IN SINGLE STUDENT ARE', this.props)
 
-  const student = props.student;
-  const campus = props.campus;
-  // const campusId = props.student.campusId;
+    const student = this.state.currentReducer.current;
+    const campus = student.campus;
+    // const campusId = props.student.campusId;
+    return (
+      <div>
+        <div id='student-info'>
+          <h2>{student.name}</h2>
+          <p> {student.email} </p>
+        </div>
 
-
-  return(
-    <div>
-      <div id='student-info'>
-        <h2>{student.name}</h2>
-        <p> {student.email} </p>
+        <div id='student-campus-info'>
+          <h4>
+          <Link to={`/campuses/${campus.id}`}>{campus.name}</Link>
+          </h4>
+        </div>
+        <DeleteStudent student={student} />
       </div>
-
-      <div id='student-campus-info'>
-        <h4>
-        <Link to={`/campuses/${campus.id}`}>{campus.name}</Link>
-        </h4>
-      </div>
-      <DeleteStudent student={student} />
-    </div>
-  )
-}
-
-const mapStateToProps = (state, ownProps) => {
-  const studentId = Number(ownProps.match.params.studentId)
-  console.log('student ID IS', studentId)
-  console.log('STATE LOOKS LIKE', state)
-
-  return {
-    student: state.studentReducer.students.find(student => student.id === studentId),
-    campus: state.studentReducer.students.find(student => student.id === studentId).campus
+    )
   }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    fetchStudent() {
-      dispatch(fetchStudent(ownProps.match.params.studentId))
-    }
-  }
-}
+// const mapStateToProps = (state, ownProps) => {
+//   const studentId = Number(ownProps.match.params.studentId)
+//   console.log('student ID IS', studentId)
+//   console.log('STATE LOOKS LIKE', state)
+
+//   return {
+//     student: state.currentReducer.current
+//     campus: state.studentReducer.students.find(student => student.id === studentId).campus
+//   }
+// }
+
+// const mapDispatchToProps = (dispatch, ownProps) => {
+//   return {
+//     fetchStudent() {
+//       dispatch(fetchStudent(ownProps.match.params.studentId))
+//     }
+//   }
+// }
 
 // const mapDispatchToProps = dispatch => {
 //   const student =
@@ -61,6 +76,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 //   }
 // }
 
-const singleStudentContainer = withRouter(connect(mapStateToProps)(SingleStudent))
-export default singleStudentContainer
+// const singleStudentContainer = withRouter(connect(mapStateToProps, mapDispatchToProps)(SingleStudent))
+// export default singleStudentContainer
 
