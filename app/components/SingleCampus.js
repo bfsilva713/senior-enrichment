@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import DeleteCampus from './DeleteCampus'
 import EditCampus from './EditCampus'
 
+
 export function SingleCampus(props) {
 
   const campus = props.campus;
@@ -14,7 +15,8 @@ export function SingleCampus(props) {
     <div>
       <div id='campus-info'>
         <h2>{campus.name}</h2>
-        <img src={campus.image} />
+
+        <img src={`../images/${campus.image}`} />
       </div>
 
       <div id='campus-student-info'>

@@ -1,17 +1,29 @@
-// const GET_CURRENT_STUDENT = 'GET_CURRENT_STUDENT'
+import axios from 'axios'
+import { thunkMiddleware } from 'redux-thunk'
 
-// export const getCurrentStudent = (student) => {
-//   return {
-//     type: GET_CURRENT_STUDENT,
-//     student
-//   }
-// }
 
-// export default currentStudentReducer = ( state = {}, action) => {
-//   switch(action.type) {
-//     case GET_CURRENT_STUDENT:
-//       return { student: action.student }
-//     default: return state
-//   }
-// }
+const GET_CURRENT_STUDENT = 'GET_CURRENT_STUDENT'
+const GET_CURRENT_CAMPUS = 'GET_CURRENT_CAMPUS'
 
+export const getCurrentStudent = (student) => { return { type: GET_CURRENT_STUDENT, student } }
+export const getCurrentCampus = (campus) => { return { type: GET_CURRENT_CAMPUS, campus } }
+
+export function fetchStudent(student) {
+  return function thunk(dispatch) {
+    axios.get(`/api/students/${student.id}`)
+      .then(res => res.data)
+      .then(currentStudent => {
+        const action = getCurrentStudent(currentStudent)
+        dispatch(action)
+      })
+  }
+}
+
+
+export default function currentReducer(state = {}, action) {
+  switch(action.type) {
+    case GET_CURRENT_STUDENT:
+      return Object.assign({}, state, { current: action.student })
+    default: return state;
+  }
+}

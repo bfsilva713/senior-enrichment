@@ -8,6 +8,7 @@ export function Campuses(props) {
     <div>
       <div id='campus-listing'>
         <h2>Campus Listing</h2>
+        <AddCampus />
         <ul>
           {props.campuses.map(campus => {
             return (
@@ -20,7 +21,6 @@ export function Campuses(props) {
           })}
         </ul>
       </div>
-      <AddCampus />
     </div>
   )
 }

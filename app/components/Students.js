@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import AddStudent from './AddStudent'
 
@@ -7,9 +7,10 @@ import AddStudent from './AddStudent'
 export function Students(props) {
   console.log('PROPS IN STUDENTS IS', props)
   return (
+    <div id='student-listing'>
     <div>
-      <div id='student-listing'>
-        <h2>Student Listing</h2>
+    <h2>Student Listing</h2>
+    <AddStudent />
         <ul>
           {props.students.map(student => {
             return (
@@ -22,7 +23,6 @@ export function Students(props) {
           })}
         </ul>
       </div>
-      <AddStudent />
     </div>
   )
 }
@@ -33,5 +33,5 @@ const mapStateToProps = (state) => {
   }
 }
 
-const StudentContainer = connect(mapStateToProps)(Students)
+const StudentContainer = withRouter(connect(mapStateToProps)(Students))
 export default StudentContainer

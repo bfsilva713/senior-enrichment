@@ -10,32 +10,32 @@ export function AddStudent(props) {
         id='add-student'
         onSubmit={props.submitStudent}
       >
-        <button>+</button>
-        <label>
-          Name:
-          <input
-            name='name'
-            placeholder='Student Name'
-          // onChange={props.inputNameChange}
-          />
-        </label>
-        <label>
-          Email:
-          <input
-            name='email'
-            placeholder='E-mail address'
-          // onChange={props.inputEmailChange}
-          />
-        </label>
-        <label>
-          Campus:
-         <select name='campus'>
-            {props.campuses.map(campus =>
-              <option key={campus.id}>{campus.name}</option>
-            )}
-          </select>
+      <label>
+      Name:
+      <input
+      name='name'
+      placeholder='Student Name'
+      // onChange={props.inputNameChange}
+      />
+      </label>
+      <label>
+      Email:
+      <input
+      name='email'
+      placeholder='E-mail address'
+      // onChange={props.inputEmailChange}
+      />
+      </label>
+      <label>
+      Campus:
+      <select name='campus'>
+      {props.campuses.map(campus =>
+        <option key={campus.id}>{campus.name}</option>
+      )}
+      </select>
 
-        </label>
+      </label>
+      <button className='myButton'> + </button>
       </form>
     </div>
   )

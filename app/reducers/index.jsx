@@ -1,36 +1,19 @@
 import { combineReducers } from 'redux';
 import { thunkMiddleware } from 'redux-thunk';
 import axios from 'axios'
-
-
-const GET_STUDENTS = 'GET_STUDENTS'
-const GET_STUDENT = 'GET_STUDENT'
-const REMOVE_STUDENT = 'REMOVE_STUDENT'
-const UPDATE_STUDENT = 'UPDATE_STUDENT'
-// const GET_CURRENT_STUDENT = 'GET_CURRENT_STUDENT'
-
-const GET_CAMPUSES = 'GET_CAMPUSES'
-const GET_CAMPUS = 'GET_CAMPUS'
-const REMOVE_CAMPUS = 'REMOVE_CAMPUS'
-const UPDATE_CAMPUS = 'UPDATE_CAMPUS'
-// const GET_CURRENT_CAMPUS = 'GET_CURRENT_CAMPUS'
-
-const NEW_INPUT = 'NEW_INPUT'
+import studentReducer from './students'
+import campusReducer from './campuses'
 
 
 export const initialState = {
   students: [],
-  // currentStudent: {},
+  currentStudent: {},
   campuses: [],
   // currentCampus: {},
   // entryField: ""
 }
 
-export const getStudents = (students) => { return { type: GET_STUDENTS, students } }
-export const getStudent = (student) => { return { type: GET_STUDENT, student } }
-export const removeStudent = (student) => { return { type: REMOVE_STUDENT, student } }
-export const updateStudent = (student) => { return { type: UPDATE_STUDENT, student } }
-export const getCurrentStudent = (student) => { return { type: GET_CURRENT_STUDENT, student } }
+
 
 export const getCampuses = (campuses) => { return { type: GET_CAMPUSES, campuses } }
 export const getCampus = (campus) => { return { type: GET_CAMPUS, campus } }
@@ -51,16 +34,7 @@ export function fetchCampuses() {
   }
 }
 
-export function fetchStudents() {
-  return function thunk(dispatch) {
-    return axios.get('/api/students')
-      .then(res => res.data)
-      .then(students => {
-        const action = getStudents(students)
-        dispatch(action)
-      })
-  }
-}
+
 
 export function postCampus(campus) {
   return function thunk(dispatch) {
@@ -69,24 +43,12 @@ export function postCampus(campus) {
       .then(newCampus => {
         const action = getCampus(newCampus)
         dispatch(action)
-        dispatch(fetchCampuses())
+        // dispatch(fetchCampuses())
       })
   }
 }
 
-export function postStudent(student) {
-  console.log('STUDENT IS', student)
-  return function thunk(dispatch) {
-    axios.post('/api/students', student)
-      .then(res => res.data)
-      .then(newStudent => {
-        console.log('NEW STUDENT IS', newStudent)
-        const action = getStudent(newStudent);
-        dispatch(action)
-        dispatch(fetchStudents())
-      })
-  }
-}
+
 
 export function deleteCampus(campus, history) {
   return function thunk(dispatch) {
@@ -99,16 +61,6 @@ export function deleteCampus(campus, history) {
   }
 }
 
-export function deleteStudent(student, history) {
-  return function thunk(dispatch) {
-    const action = removeStudent(student)
-    dispatch(action)
-    axios.delete(`/api/students/${student.id}`)
-      .then(() => {
-        history.push('/')
-      })
-  }
-}
 
 export function editCampus(campus) {
   return function thunk(dispatch) {
@@ -122,20 +74,24 @@ export function editCampus(campus) {
 }
 
 
+
+
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case GET_STUDENTS:
       return Object.assign({}, state, { students: action.students })
     case GET_STUDENT:
       return Object.assign({}, state, { students: [...state.students, action.student]})
+      case GET_CURRENT_STUDENT:
+        return Object.assign({}, state, { currentStudent: action.student})
+      case REMOVE_STUDENT:
+        return Object.assign({}, state, { students: state.students.filter(student => student.id !== action.student.id)})
     case GET_CAMPUSES:
       return Object.assign({}, state, { campuses: action.campuses })
     case GET_CAMPUS:
       return Object.assign({}, state, { campuses: [...state.campuses, action.campus] })
     case REMOVE_CAMPUS:
       return Object.assign({}, state, { campuses: state.campuses.filter(campus => campus.id !== action.campus.id)})
-    case REMOVE_STUDENT:
-      return Object.assign({}, state, { students: state.students.filter(student => student.id !== action.student.id)})
     case UPDATE_CAMPUS:
       return Object.assign({}, state, { campuses: [...state.campuses.filter(campus => campus.id !== action.campus.id), action.campus]})
     default: return state;

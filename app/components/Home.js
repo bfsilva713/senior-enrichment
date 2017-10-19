@@ -29,7 +29,7 @@ export default class Home extends Component {
         </div>
         <div>
           <p>To continue, please choose a link below:</p>
-          <ul>
+          <ul id='home-page-links'>
             <li><NavLink to='/campuses'>Campuses</NavLink></li>
             <li><NavLink to='/students'>Students</NavLink></li>
           </ul>

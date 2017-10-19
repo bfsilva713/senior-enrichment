@@ -21,7 +21,10 @@ studentRouter.post('/', (req, res, next) => {
       return newStudent.save();
     })
     .then(newStudent => newStudent.reload(Student.options.scopes.populated()))
-    .then(student => res.json(student))
+    .then(student => {
+      res.json(student)
+      console.log('STUDENT INSIDE POST FUNCTION', student)
+    })
     .catch(next);
 });
 

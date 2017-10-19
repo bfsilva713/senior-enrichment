@@ -1,10 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import DeleteStudent from './DeleteStudent'
 
 
 export function SingleStudent(props) {
+
+
+
+  console.log('PROPS IN SINGLE STUDENT ARE', props)
 
   const student = props.student;
   const campus = props.campus;
@@ -39,6 +43,15 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-const singleStudentContainer = connect(mapStateToProps)(SingleStudent)
+// const mapDispatchToProps = dispatch => {
+//   const student =
+//   return {
+//     fetchStudent(student){
+
+//     }
+//   }
+// }
+
+const singleStudentContainer = withRouter(connect(mapStateToProps)(SingleStudent))
 export default singleStudentContainer
 
