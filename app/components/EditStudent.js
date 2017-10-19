@@ -1,15 +1,18 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { editCampus } from '../reducers'
+import { editStudent } from '../reducers'
 import { withRouter } from 'react-router-dom'
 
-export function EditCampus(props) {
+export function EditStudent(props) {
   return(
     <div>
       <form onSubmit={props.submitEdit}>
         <button>Edit Info</button>
         <label> Name:
           <input name='name' />
+        </label>
+        <label> E-mail:
+          <input name='email' />
         </label>
         <label> Image:
           <input name='image' />
@@ -21,19 +24,22 @@ export function EditCampus(props) {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   const edit = {};
-  const campusId = Number(ownProps.match.params.campusId)
+  const studentId = Number(ownProps.match.params.studentId)
   return {
     submitEdit(event){
       event.preventDefault()
       if(event.target.name.value) {
         edit.name = event.target.name.value
       }
+      if(event.target.email.value) {
+        edit.email = event.target.email.value
+      }
       if(event.target.image.value) edit.image = event.target.image.value
-      dispatch(editCampus(campusId, edit))
+      dispatch(editStudent(studentId, edit))
     }
   }
 }
 
-const EditCampusContainer = withRouter(connect(null, mapDispatchToProps)(EditCampus))
+const EditStudentContainer = withRouter(connect(null, mapDispatchToProps)(EditStudent))
 
-export default EditCampusContainer
+export default EditStudentContainer

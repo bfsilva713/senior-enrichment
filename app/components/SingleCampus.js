@@ -10,8 +10,6 @@ export function SingleCampus(props) {
   const campus = props.campus.find(campusItem => campusItem.id === campusId);
   const students = props.students.filter(student => student.campusId ===  campusId);
 
-  console.log('CAMPUS', campus)
-
   return (
     <div>
       <div id='campus-info'>
@@ -46,11 +44,7 @@ export function SingleCampus(props) {
   )
 }
 
-const mapStateToProps = (state, ownProps) => {
-  const campusId = Number(ownProps.match.params.campusId)
-  console.log('CAMPUS ID IS', campusId)
-  console.log('STATE LOOKS LIKE', state)
-  console.log('STATE-CAMPUS-REDUCER', state.campusReducer)
+const mapStateToProps = (state) => {
 
   return {
     campus: state.campusReducer,

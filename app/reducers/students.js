@@ -61,6 +61,17 @@ export function deleteStudent(student, history) {
   }
 }
 
+export function editStudent(studentId, edit) {
+  return function thunk(dispatch) {
+    axios.put(`/api/campuses/${studentId}`, edit)
+      .then(res => res.data)
+      .then(updatedStudent => {
+        const action = updateStudent(updatedStudent)
+        dispatch(action)
+      })
+  }
+}
+
 
 //REDUCER
 

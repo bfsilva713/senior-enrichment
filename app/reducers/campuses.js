@@ -57,9 +57,9 @@ export function deleteCampus(campus, history) {
   }
 }
 
-export function editCampus(campus) {
+export function editCampus(campusId, edit) {
   return function thunk(dispatch) {
-    axios.put(`/api/campuses/${campus.id}`, campus)
+    axios.put(`/api/campuses/${campusId}`, edit)
       .then(res => res.data)
       .then(updatedCampus => {
         const action = updateCampus(updatedCampus)

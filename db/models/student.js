@@ -14,6 +14,10 @@ let Student = db.define('student', {
     validate: {
       isEmail: true,
     }
+  },
+  image: {
+    type: Sequelize.STRING,
+    defaultValue: '/images/profile/profile2.png'
   }
 }, {
   scopes: {

@@ -29,14 +29,14 @@ campusRouter.put('/:campusId', (req, res, next) => {
 });
 
 campusRouter.delete('/:campusId', (req, res, next) => {
-  Campus.destroy({ where: {id: req.params.campusId}})
-    .then(() => Student.destroy({where: {
-      campusId: req.params.campusId
-    }}))
-    .then(() => res.status(204).end())
-    .catch(next);
+  Student.destroy({ where: {
+    campusId: req.params.campusId
+  }})
+  .then(() => Campus.destroy({ where: {
+    id: req.params.campusId}}))
+  .then(() => res.status(204).end())
+  .catch(next);
 });
-
 
 
 module.exports = campusRouter;

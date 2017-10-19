@@ -2,56 +2,50 @@ import React from 'react';
 import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import DeleteStudent from './DeleteStudent'
+import EditStudent from './EditStudent'
 
 
 export function SingleStudent(props) {
 
+  const studentId = Number(props.match.params.studentId)
+  const student = props.student.find(studentObj => studentObj.id === studentId);
+  const campus = student ? student.campus : {}
 
 
-  console.log('PROPS IN SINGLE STUDENT ARE', props)
-
-  const student = props.student;
-  const campus = {id: 1, name: 'bre'}
-  // const campusId = props.student.campusId;
-
-
-  return(
+  return (
     <div>
-      <div id='student-info'>
-        <h2>{}</h2>
-        <p> {} </p>
-      </div>
+      {
+        student && (
+          <div id='student-info'>
+            <h2>{student.name}</h2>
+            <p> {student.email} </p>
+            <img src={student.image} />
+          </div>
+        )
+      }
 
-      <div id='student-campus-info'>
-        <h4>
-        <Link to={`/campuses/${campus.id}`}>{campus.name}</Link>
-        </h4>
-      </div>
+      {
+        campus && (
+          <div id='student-campus-info'>
+            <h4>
+              <Link to={`/campuses/${campus.id}`}>{campus.name}</Link>
+            </h4>
+          </div>
+        )
+      }
       <DeleteStudent student={student} />
+      <EditStudent />
     </div>
   )
 }
 
-const mapStateToProps = (state, ownProps) => {
-  const studentId = Number(ownProps.match.params.studentId)
-  console.log('student ID IS', studentId)
-  console.log('STATE LOOKS LIKE', state)
+const mapStateToProps = (state) => {
 
   return {
-    student: state.studentReducer.find(student => student.id === studentId),
-    // campus: state.studentReducer.students.find(student => student.id === studentId).campus
+    student: state.studentReducer
   }
 }
 
-
-// const mapDispatchToProps = dispatch => {
-//   const student =
-//   return {
-//     fetchStudent(student){
-
-//     }
-//   }
-// }
 
 const singleStudentContainer = withRouter(connect(mapStateToProps)(SingleStudent))
 export default singleStudentContainer
