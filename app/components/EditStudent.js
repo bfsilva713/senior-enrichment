@@ -60,7 +60,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       }
 
       dispatch(editStudent(studentId, edit, ownProps.history))
-      console.log('EDIT LOOKS LIKE', edit)
 
     }
   }

@@ -49,7 +49,8 @@ export function deleteStudent(studentId, history) {
     const action = removeStudent(studentId)
     dispatch(action)
     axios.delete(`/api/students/${studentId}`)
-      .then(() => {
+    .then(() => {
+      console.log('MADE AXIOS DELETE REQUEST')
         history.push('/')
       })
   }

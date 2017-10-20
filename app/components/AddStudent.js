@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { postStudent } from '../reducers'
 
 export function AddStudent(props) {
-  console.log('PROPS ARE', props)
   return (
     <div>
       <form
@@ -61,7 +60,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       event.preventDefault();
       const name = event.target.name.value;
       const email = event.target.email.value;
-      const campusName = ownProps.setCampus.name || event.target.campus.value
+      const campusName = ownProps.setCampus ? ownProps.setCampus.name : event.target.campus.value
       let image = event.target.image.value;
 
       if(image === '') image = `/images/profile/profile${Math.ceil(Math.random()*26)}.png`;

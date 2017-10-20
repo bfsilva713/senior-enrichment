@@ -4,7 +4,8 @@ import { deleteStudent } from '../reducers'
 import { withRouter } from 'react-router-dom'
 
 export function DeleteStudent(props) {
-console.log('INSIDE DELETE STUDENT, PROPS ARE ', props)
+  console.log('INSIDE DELETE STUDENT FUNCTION')
+  console.log('PROPS ARE', props)
   return(
     <div>
       <button onClick={props.removeStudent}>
@@ -18,9 +19,10 @@ console.log('INSIDE DELETE STUDENT, PROPS ARE ', props)
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     removeStudent(event){
-      console.log('INSIDE REMOVE STUDENT', ownProps.student.id)
+      console.log('INSIDE REMOVESTUDENT EVENT HANDLER')
       event.preventDefault();
       dispatch(deleteStudent(ownProps.student.id, ownProps.history));
+      console.log('DISPATCHED DELETE')
     }
   }
 }

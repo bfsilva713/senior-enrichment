@@ -23,13 +23,11 @@ studentRouter.post('/', (req, res, next) => {
     .then(newStudent => newStudent.reload(Student.options.scopes.populated()))
     .then(student => {
       res.json(student)
-      console.log('STUDENT INSIDE POST FUNCTION', student)
     })
     .catch(next);
 });
 
 studentRouter.put('/:studentId', (req, res, next) => {
-  console.log('REQ.BODY', req.body)
   Student.findById(req.params.studentId, { include: [{ all: true }]})
     .then(student => student.update(req.body))
     .then(student => student.reload(Student.options.scopes.populated()))
@@ -38,7 +36,9 @@ studentRouter.put('/:studentId', (req, res, next) => {
 });
 
 studentRouter.delete('/:studentId', (req, res, next) => {
+  console.log('INSIDE STUDENT ROUTER DELETE')
   Student.destroy({ where: { id: req.params.studentId } })
+  console.log('DELETED FROM DATABASE')
     .then(() => res.status(204).end())
     .catch(next);
 });

@@ -4,12 +4,11 @@ import { connect } from 'react-redux'
 import DeleteCampus from './DeleteCampus'
 import EditCampus from './EditCampus'
 import AddStudent from './AddStudent'
-import deleteStudent from '../reducers'
+import { deleteStudent } from '../reducers'
 
 
 export function SingleCampus(props) {
 
-  console.log('PROPS IN SINGLUE CAMPUS ARE', props)
   const campusId = Number(props.match.params.campusId)
   const campus = props.campus.find(campusItem => campusItem.id === campusId);
   const students = props.students.filter(student => student.campusId ===  campusId);
@@ -54,7 +53,7 @@ export function SingleCampus(props) {
       </div>
       <DeleteCampus campus={campus} />
       <EditCampus campus={campus} />
-      <AddStudent setCampus={campus}/>
+      <AddStudent setCampus={campus} />
     </div>
   )
 }
@@ -71,9 +70,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     deleteStudent(event) {
       event.preventDefault()
-      const studentToDelete = event.target.value;
-      console.log('BUTTON VALUE SHOULD BE', studentToDelete.id)
-
+      const deleteStudentId = event.target.value;
+      dispatch(deleteStudent(deleteStudentId, ownProps.history))
     }
   }
 }
