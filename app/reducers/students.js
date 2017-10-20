@@ -15,7 +15,7 @@ const DELETE_FROM_CAMPUS = 'DELETE_FROM_CAMPUS'
 
 export const getStudents = (students) => { return { type: GET_STUDENTS, students } }
 export const getStudent = (student) => { return { type: GET_STUDENT, student } }
-export const removeStudent = (student) => { return { type: REMOVE_STUDENT, student } }
+export const removeStudent = (studentId) => { return { type: REMOVE_STUDENT, studentId } }
 export const updateStudent = (student) => { return { type: UPDATE_STUDENT, student } }
 export const deleteFromCampus = (campusId) => { return { type: DELETE_FROM_CAMPUS, campusId } }
 
@@ -44,11 +44,11 @@ export function postStudent(student) {
   }
 }
 
-export function deleteStudent(student, history) {
+export function deleteStudent(studentId, history) {
   return function thunk(dispatch) {
-    const action = removeStudent(student)
+    const action = removeStudent(studentId)
     dispatch(action)
-    axios.delete(`/api/students/${student.id}`)
+    axios.delete(`/api/students/${studentId}`)
       .then(() => {
         history.push('/')
       })
@@ -78,7 +78,7 @@ export default function studentReducer(state = [], action) {
     case GET_STUDENT:
       return [...state, action.student]
     case REMOVE_STUDENT:
-      return state.filter(student => student.id !== action.student.id)
+      return state.filter(student => student.id !== action.studentId)
     case UPDATE_STUDENT:
       return [...state.filter(student => student.id !== action.student.id), action.student]
     case DELETE_FROM_CAMPUS:
