@@ -4,6 +4,7 @@ import { editStudent } from '../reducers'
 import { withRouter } from 'react-router-dom'
 
 export function EditStudent(props) {
+
   return(
     <div>
       <form onSubmit={props.submitEdit}>
@@ -17,9 +18,24 @@ export function EditStudent(props) {
         <label> Image:
           <input name='image' />
         </label>
+        <label>
+        Campus:
+        <select name='campus'>
+            <option key='0' />
+          {props.campuses.map(campus =>
+            <option key={campus.id} value={campus.id}>{campus.name}</option>
+          )}
+        </select>
+      </label>
       </form>
     </div>
   )
+}
+
+const mapStateToProps = (state) => {
+  return {
+    campuses: state.campusReducer,
+  }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -28,9 +44,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     submitEdit(event){
       event.preventDefault()
-      console.log('EMAIL IS', event.target.email.value)
-      console.log('NAME IS', event.target.name.value)
-      console.log('IMAGE IS', event.target.image.value)
 
       if(event.target.name.value) {
         edit.name = event.target.name.value
@@ -39,13 +52,20 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         edit.email = event.target.email.value
       }
       if(event.target.image.value) edit.image = event.target.image.value
-      dispatch(editStudent(studentId, edit))
+
+      if(event.target.campus.value) {
+        edit.campusId = Number(event.target.campus.value)
+      } else {
+        edit.campusId = ownProps.student.campus.id
+      }
+
+      dispatch(editStudent(studentId, edit, ownProps.history))
       console.log('EDIT LOOKS LIKE', edit)
 
     }
   }
 }
 
-const EditStudentContainer = withRouter(connect(null, mapDispatchToProps)(EditStudent))
+const EditStudentContainer = withRouter(connect(mapStateToProps, mapDispatchToProps)(EditStudent))
 
 export default EditStudentContainer

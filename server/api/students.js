@@ -29,8 +29,10 @@ studentRouter.post('/', (req, res, next) => {
 });
 
 studentRouter.put('/:studentId', (req, res, next) => {
+  console.log('REQ.BODY', req.body)
   Student.findById(req.params.studentId, { include: [{ all: true }]})
     .then(student => student.update(req.body))
+    .then(student => student.reload(Student.options.scopes.populated()))
     .then(student => res.json(student))
     .catch(next);
 });

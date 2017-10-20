@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import DeleteCampus from './DeleteCampus'
 import EditCampus from './EditCampus'
+import AddStudent from './AddStudent'
 
 
 export function SingleCampus(props) {
@@ -40,6 +41,7 @@ export function SingleCampus(props) {
       </div>
       <DeleteCampus campus={campus} />
       <EditCampus campus={campus} />
+      <AddStudent setCampus={campus}/>
     </div>
   )
 }

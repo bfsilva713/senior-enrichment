@@ -7,8 +7,8 @@ import EditStudent from './EditStudent'
 
 export function SingleStudent(props) {
 
-  const studentId = Number(props.match.params.studentId)
-  const student = props.student.find(studentObj => studentObj.id === studentId);
+
+  const student = props.student
   const campus = student ? student.campus : {}
 
 
@@ -34,15 +34,15 @@ export function SingleStudent(props) {
         )
       }
       <DeleteStudent student={student} />
-      <EditStudent />
+      <EditStudent student={student} />
     </div>
   )
 }
 
-const mapStateToProps = (state) => {
-
+const mapStateToProps = (state, ownProps) => {
+const studentId = Number(ownProps.match.params.studentId)
   return {
-    student: state.studentReducer
+    student: state.studentReducer.find(studentObj => studentObj.id === studentId)
   }
 }
 

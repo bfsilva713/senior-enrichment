@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { postStudent } from '../reducers'
 
 export function AddStudent(props) {
+  console.log('PROPS ARE', props)
   return (
     <div>
       <form
@@ -30,16 +31,19 @@ export function AddStudent(props) {
             placeholder='Image URL'
           />
         </label>
-        <label>
-          Campus:
-          <select name='campus'>
-            {props.campuses.map(campus =>
-              <option key={campus.id}>{campus.name}</option>
-            )}
-          </select>
+        { !props.setCampus && (
+              <label className='campus-add-field'>
+              Campus:
+              <select name='campus'>
+                {props.campuses.map(campus =>
+                  <option key={campus.id}>{campus.name}</option>
+                )}
+              </select>
+            </label>
+          )
+        }
 
-        </label>
-        <button className='myButton'> + </button>
+        <button className='myButton'> Add Student </button>
       </form>
     </div>
   )
@@ -51,13 +55,13 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     submitStudent(event) {
       event.preventDefault();
       const name = event.target.name.value;
       const email = event.target.email.value;
-      const campusName = event.target.campus.value;
+      const campusName = ownProps.setCampus.name || event.target.campus.value
       let image = event.target.image.value;
 
       if(image === '') image = `/images/profile/profile${Math.ceil(Math.random()*26)}.png`;

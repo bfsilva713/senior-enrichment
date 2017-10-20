@@ -55,13 +55,14 @@ export function deleteStudent(student, history) {
   }
 }
 
-export function editStudent(studentId, edit) {
+export function editStudent(studentId, edit, history) {
   return function thunk(dispatch) {
     axios.put(`/api/students/${studentId}`, edit)
     .then(res => res.data)
     .then(updatedStudent => {
       const action = updateStudent(updatedStudent)
       dispatch(action)
+      history.push(`/students/${studentId}`)
       fetchStudents()
       })
   }
