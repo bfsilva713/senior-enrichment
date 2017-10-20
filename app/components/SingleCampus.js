@@ -4,9 +4,12 @@ import { connect } from 'react-redux'
 import DeleteCampus from './DeleteCampus'
 import EditCampus from './EditCampus'
 import AddStudent from './AddStudent'
+import deleteStudent from '../reducers'
 
 
 export function SingleCampus(props) {
+
+  console.log('PROPS IN SINGLUE CAMPUS ARE', props)
   const campusId = Number(props.match.params.campusId)
   const campus = props.campus.find(campusItem => campusItem.id === campusId);
   const students = props.students.filter(student => student.campusId ===  campusId);
@@ -32,7 +35,17 @@ export function SingleCampus(props) {
             students.map(student => {
               return (
                 <li key={student.id}>
-                  <Link to={`/students/${student.id}`}>{student.name}</Link>
+                  <span>
+                    <Link to={`/students/${student.id}`}>
+                      {student.name}
+                    </Link>
+                    <button
+                      onClick={props.deleteStudent}
+                      value={student}
+                    >
+                      X
+                    </button>
+                  </span>
                 </li>
               )
             })
@@ -54,5 +67,16 @@ const mapStateToProps = (state) => {
   }
 }
 
-const singleCampusContainer = connect(mapStateToProps)(SingleCampus)
+const mapDispatchToProps = dispatch => {
+  return {
+    deleteStudent(event) {
+      event.preventDefault()
+      const studentToDelete = event.target.value;
+      console.log('BUTTON VALUE SHOULD BE', studentToDelete.id)
+
+    }
+  }
+}
+
+const singleCampusContainer = connect(mapStateToProps, mapDispatchToProps)(SingleCampus)
 export default singleCampusContainer

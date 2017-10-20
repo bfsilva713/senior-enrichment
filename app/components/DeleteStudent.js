@@ -19,7 +19,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     removeStudent(event){
       event.preventDefault();
-      dispatch(deleteStudent(ownProps.student, ownProps.history));
+      dispatch(deleteStudent(ownProps.student.id, ownProps.history));
     }
   }
 }
