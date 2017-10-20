@@ -36,9 +36,7 @@ studentRouter.put('/:studentId', (req, res, next) => {
 });
 
 studentRouter.delete('/:studentId', (req, res, next) => {
-  console.log('INSIDE STUDENT ROUTER DELETE')
   Student.destroy({ where: { id: req.params.studentId } })
-  console.log('DELETED FROM DATABASE')
     .then(() => res.status(204).end())
     .catch(next);
 });
