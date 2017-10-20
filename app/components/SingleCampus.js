@@ -41,7 +41,7 @@ export function SingleCampus(props) {
                     </Link>
                     <button
                       onClick={props.deleteStudent}
-                      value={student}
+                      value={student.id}
                     >
                       X
                     </button>
@@ -67,7 +67,7 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     deleteStudent(event) {
       event.preventDefault()
