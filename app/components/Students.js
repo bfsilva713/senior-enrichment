@@ -7,20 +7,23 @@ import AddStudent from './AddStudent'
 export function Students(props) {
   return (
     <div id='student-listing'>
-    <div>
-    <h2>Student Listing</h2>
-    <AddStudent />
-        <ul>
+      <div>
+        <h2>Student Listing</h2>
+        <ul id='student-ul'>
           {props.students.map(student => {
             return (
               <li key={student.id}>
-                <Link to={`/students/${student.id}`}>
-                  {student.name}
-                </Link>
+                <div className='student-list'>
+                  <Link to={`/students/${student.id}`}>
+                    {student.name}
+                  </Link>
+                  <img className='icon' src={student.image} />
+                </div>
               </li>
             )
           })}
         </ul>
+        <AddStudent />
       </div>
     </div>
   )

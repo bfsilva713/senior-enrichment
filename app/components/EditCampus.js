@@ -4,16 +4,16 @@ import { editCampus } from '../reducers'
 import { withRouter } from 'react-router-dom'
 
 export function EditCampus(props) {
-  return(
+  return (
     <div>
       <form onSubmit={props.submitEdit}>
-        <button>Edit Info</button>
         <label> Name:
-          <input name='name' />
+      <input name='name' />
         </label>
         <label> Image:
-          <input name='image' />
+      <input name='image' />
         </label>
+        <button>Edit Info</button>
       </form>
     </div>
   )
@@ -23,12 +23,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   const edit = {};
   const campusId = Number(ownProps.match.params.campusId)
   return {
-    submitEdit(event){
+    submitEdit(event) {
       event.preventDefault()
-      if(event.target.name.value) {
+      if (event.target.name.value) {
         edit.name = event.target.name.value
       }
-      if(event.target.image.value) edit.image = event.target.image.value
+      if (event.target.image.value) edit.image = event.target.image.value
       dispatch(editCampus(campusId, edit))
     }
   }

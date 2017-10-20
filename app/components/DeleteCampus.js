@@ -7,7 +7,10 @@ export function DeleteCampus(props) {
 
   return(
     <div>
-      <button onClick={props.removeCampus}>
+      <button
+        onClick={props.removeCampus}
+        className='deleteButton'
+      >
         Delete Campus
       </button>
     </div>

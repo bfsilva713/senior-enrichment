@@ -30,6 +30,7 @@ export function AddStudent(props) {
             placeholder='Image URL'
           />
         </label>
+        {/* props.setCampus comes from student-add form on SingleCampus page - ignoring campus selection */ }
         { !props.setCampus && (
               <label className='campus-add-field'>
               Campus:
@@ -42,7 +43,7 @@ export function AddStudent(props) {
           )
         }
 
-        <button className='myButton'> Add Student </button>
+        <button className='myButton'> Add Student! </button>
       </form>
     </div>
   )
@@ -60,6 +61,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       event.preventDefault();
       const name = event.target.name.value;
       const email = event.target.email.value;
+      //if setCampus was passed down from SingleCampus page, use that as campus; else use selected campus
       const campusName = ownProps.setCampus ? ownProps.setCampus.name : event.target.campus.value
       let image = event.target.image.value;
 

@@ -41,8 +41,9 @@ export function SingleCampus(props) {
                     <button
                       onClick={props.deleteStudent}
                       value={student.id}
+                      id='x-student'
                     >
-                      X
+                      remove
                     </button>
                   </span>
                 </li>

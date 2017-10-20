@@ -5,21 +5,24 @@ import AddCampus from './AddCampus'
 
 export function Campuses(props) {
   return (
-    <div>
-      <div id='campus-listing'>
+    <div id='campus-listing'>
+      <div>
         <h2>Campus Listing</h2>
-        <AddCampus />
-        <ul>
+        <ul id='campus-ul'>
           {props.campuses.map(campus => {
             return (
               <li key={campus.id}>
-                <Link to={`/campuses/${campus.id}`}>
-                  {campus.name}
-                </Link>
+                <div className='campus-list'>
+                  <Link to={`/campuses/${campus.id}`}>
+                    {campus.name}
+                  </Link>
+                  <img className='icon' src={campus.image} />
+                </div>
               </li>
             )
           })}
         </ul>
+        <AddCampus />
       </div>
     </div>
   )

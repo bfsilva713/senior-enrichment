@@ -39,26 +39,119 @@ a{
   color: silver;
 }
 
-#student-listing {
-  background-image: url('/violet.jpg');
-  background-size: cover;
-  height: 100vh;
-}
-
-#campus-listing {
-  background: url(red.jpg);
-  background-size: cover;
-  height: 100vh;
-}
-
 
 ul {
   list-style: none;
 }
 
-.myButton {
-  background-color: green;
-  border-radius: 50px;
+button {
+  background-color: #FC9BAD;
+  border-radius: 15px;
   color: white;
-  font-size: 20px;
+  font-size: 18px;
+  font-family: 'Saira Extra Condensed', sans-serif;
+  margin: 15px;
+}
+
+
+
+input, select {
+  border: 1px solid pink;
+  border-radius: 4px;
+  font-size: 18px;
+  padding: 15px;
+}
+
+form label {
+  font-size: 25px;
+  margin-left: 15px;
+  margin-right: 25px;
+}
+
+form {
+  margin-bottom: 20px;
+}
+
+.deleteButton{
+  background-color: red;
+}
+
+.icon{
+  max-height: 16rem;
+  max-width: 16rem;
+}
+
+#student-listing {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#student-listing ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#student-ul {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.student-list {
+  display: flex;
+  flex-direction: column;
+}
+
+
+#student-listing ul li {
+  list-style: none;
+  flex-wrap: wrap;
+  flex-direction: row;
+  flex-basis: 33%;
+  justify-content: space-around;
+  text-align: center;
+}
+
+li img {
+  display: block;
+  margin: auto;
+}
+
+
+#campus-listing {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#campus-listing ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#campus-ul {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.campus-list {
+  display: flex;
+  flex-direction: column;
+}
+
+
+#campus-listing ul li {
+  list-style: none;
+  flex-wrap: wrap;
+  flex-direction: row;
+  flex-basis: 33%;
+  justify-content: space-around;
+  text-align: center;
+}
+
+#x-student {
+  background-color: red;
+  max-height: 3rem;
+  font-size: 15px;
+  padding: 2px;
 }

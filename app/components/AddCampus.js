@@ -24,7 +24,7 @@ export function AddCampus(props) {
             placeholder='Image URL'
           />
         </label>
-        <button className='myButton'> + </button>
+        <button className='myButton'> Add Campus </button>
 
       </form>
     </div>

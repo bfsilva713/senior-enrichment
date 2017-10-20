@@ -1,13 +1,42 @@
 'use strict';
 
+//    /images/campuses/planet2.png
+
 var chance = require('chance')(123);
-// var toonAvatar = require('cartoon-avatar');
 var Promise = require('bluebird');
 
 var db = require('./db');
 var { Student, Campus } = require('./db/models');
 var numStudents = 100;
-var numCampuses = 8;
+
+
+const Fullstack = Campus.create({
+  name: 'Fullstack',
+  image: '/images/campuses/fa-logo@2x.png'
+})
+
+const CSMO = Campus.create({
+  name: 'CSMO',
+  image: '/images/campuses/jupiter.png'
+})
+
+const Terracademy = Campus.create({
+  name: 'Terracademy',
+  image: '/images/campuses/terra1.png'
+})
+
+const SaturnU = Campus.create({
+  name: 'SaturnU',
+  image: '/images/campuses/saturn.png'
+})
+
+const LUNA = Campus.create({
+  name: 'LUNA',
+  image: '/images/campuses/planet3.png'
+})
+
+const schools = Promise.all([Fullstack, CSMO, Terracademy, SaturnU, LUNA])
+
 
 var emails = chance.unique(chance.email, numStudents);
 
@@ -19,22 +48,15 @@ function doTimes (n, fn) {
   return results;
 }
 
-// function randPhoto (gender) {
-//   gender = gender.toLowerCase();
-//   var id = chance.natural({
-//     min: 1,
-//     max: gender === 'female' ? 114 : 129
-//   });
-//   return toonAvatar.generate_avatar({ gender: gender, id: id });
-// }
+
 
 function randStudent () {
   var gender = chance.gender();
-  return Student.build({
+  return Student.create({
     name: [chance.first({gender: gender}), chance.last()].join(' '),
     image: `/images/profile/profile${Math.ceil(Math.random()*26)}`,
     email: emails.pop()
-  });
+  })
 }
 
 
@@ -48,29 +70,18 @@ function generateStudents () {
   return Students;
 }
 
-function generateStories (createdStudents) {
-  return doTimes(numStories, function () {
-    return randStory(createdStudents);
-  });
-}
 
 function createStudents () {
-  return Promise.map(generateStudents(), function (Student) {
-    return Student.save();
+  return Promise.map(generateStudents(), Student => {
+    var campus = schools[Math.floor(Math.random()*5)]
+    return Student.setCampus(campus, {save: true})
   });
 }
 
-function createStories (createdStudents) {
-  return Promise.map(generateStories(createdStudents), function (story) {
-    return story.save();
-  });
-}
 
 function seed () {
   return createStudents()
-  .then(function (createdStudents) {
-    return createStories(createdStudents);
-  });
+  // });
 }
 
 console.log('Syncing database');
